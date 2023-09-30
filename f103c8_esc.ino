@@ -17,7 +17,7 @@ void setup() {
 int i = 0;
 float pwm_in = 1000;
 void loop() {
-  analogWriteResolution(8);
+  analogWriteResolution(12);
   unsigned long currentMicros = micros();
   unsigned long currMillis = millis();
 
@@ -62,7 +62,7 @@ void loop() {
       count = 1;
     }
     
-    if(i == 255){
+    if(i == 4095){
       i = 0;
       count++;
     }
