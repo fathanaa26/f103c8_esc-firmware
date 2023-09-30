@@ -12,11 +12,12 @@ void setup() {
   analogWrite(PA0, LOW);
   analogWrite(PA1, LOW);
   analogWrite(PA3, LOW);
-  
+
 }
 int i = 0;
 float pwm_in = 1000;
 void loop() {
+  analogWriteResolution(8);
   unsigned long currentMicros = micros();
   unsigned long currMillis = millis();
 
@@ -24,13 +25,13 @@ void loop() {
     prevMillis = currMillis;
     
     if(cw){
-      pwm_in = pwm_in - 100;
+      pwm_in = pwm_in - 50;
   
       if(pwm_in == 0){
         cw = false;
       }
     }else{
-      pwm_in = pwm_in + 100;
+      pwm_in = pwm_in + 50;
       if(pwm_in == 1000){
         cw = true;
       }
