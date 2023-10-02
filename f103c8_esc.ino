@@ -1,71 +1,44 @@
-int count = 1;
+int count = 0;
+int potVal = 0;
+int i = 0;
+float pwm_in = 1;
 bool cw = true;
 
 unsigned long prevMicros = 0;
-unsigned long prevMillis = 0;
 
 void setup() {
   pinMode(PA0, OUTPUT);
   pinMode(PA1, OUTPUT);
   pinMode(PA3, OUTPUT);
 
-  analogWrite(PA0, LOW);
-  analogWrite(PA1, LOW);
-  analogWrite(PA3, LOW);
-
 }
-int i = 0;
-float pwm_in = 1;
+
 void loop() {
-  analogWriteResolution(8);
+  potVal = map(analogRead(A7), 0,4095, 0 ,1000000);
   unsigned long currentMicros = micros();
-  unsigned long currMillis = millis();
-
-  if(currMillis - prevMillis >= 1000){
-    prevMillis = currMillis;
-    
-    if(cw){
-      pwm_in = pwm_in - 50;
   
-      if(pwm_in == 0){
-        cw = false;
-      }
-    }else{
-      pwm_in = pwm_in + 50;
-      if(pwm_in == 1000){
-        cw = true;
-      }
-    }
-
-    
-  }
-  
-  
-  if(currentMicros - prevMicros >= pwm_in){
+  if(currentMicros - prevMicros >= potVal){
     
     prevMicros = currentMicros;
-    i++;
+    count++;
 
     if(count == 1){
-      analogWrite(PA0, i);
-      analogWrite(PA1, 0);
-      analogWrite(PA3, 0);
+      digitalWrite(PA0, HIGH);
+      digitalWrite(PA1, LOW);
+      digitalWrite(PA3, LOW);
     }else if(count == 2){
-      analogWrite(PA0, 0);
-      analogWrite(PA1, i);
-      analogWrite(PA3, 0);
+      digitalWrite(PA0, LOW);
+      digitalWrite(PA1, HIGH);
+      digitalWrite(PA3, LOW);
     }else if(count == 3){
-      analogWrite(PA0, 0);
-      analogWrite(PA1, 0);
-      analogWrite(PA3, i);
+      digitalWrite(PA0, LOW);
+      digitalWrite(PA1, LOW);
+      digitalWrite(PA3, HIGH);
     }else{
       count = 1;
+      digitalWrite(PA0, HIGH);
     }
     
-    if(i == 4095){
-      i = 0;
-      count++;
-    }
   }
   
     
