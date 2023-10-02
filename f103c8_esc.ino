@@ -15,9 +15,9 @@ void setup() {
 
 }
 int i = 0;
-float pwm_in = 1000;
+float pwm_in = 1;
 void loop() {
-  analogWriteResolution(12);
+  analogWriteResolution(8);
   unsigned long currentMicros = micros();
   unsigned long currMillis = millis();
 
