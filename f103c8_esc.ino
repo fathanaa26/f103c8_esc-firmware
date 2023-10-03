@@ -10,6 +10,7 @@ void setup() {
   pinMode(PA0, OUTPUT);
   pinMode(PA1, OUTPUT);
   pinMode(PA3, OUTPUT);
+  Serial.begin(9600);
 
 }
 
@@ -18,7 +19,8 @@ void loop() {
   unsigned long currentMicros = micros();
   
   if(currentMicros - prevMicros >= potVal){
-    
+    Serial.print("TEST SERIAL ");
+    Serial.println("count");
     prevMicros = currentMicros;
     count++;
 
